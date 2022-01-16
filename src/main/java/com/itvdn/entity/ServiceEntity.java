@@ -10,7 +10,7 @@ public class ServiceEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
-    private int id;
+    private long id;
     @Basic
     @Column(name = "service_name")
     private String serviceName;
@@ -26,11 +26,21 @@ public class ServiceEntity {
     @OneToMany(mappedBy = "serviceByServiceId")
     private Collection<UserServiceEntity> userServicesById;
 
-    public int getId() {
+    public ServiceEntity() {
+    }
+
+    public ServiceEntity(String serviceName, boolean isActive, double serviceMonthPrice, int customerId) {
+        this.serviceName = serviceName;
+        this.isActive = isActive;
+        this.serviceMonthPrice = serviceMonthPrice;
+        this.customerId = customerId;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
