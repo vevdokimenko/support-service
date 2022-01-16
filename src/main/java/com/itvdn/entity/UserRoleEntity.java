@@ -10,7 +10,7 @@ public class UserRoleEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
-    private int id;
+    private long id;
     @Basic
     @Column(name = "role_name")
     private String roleName;
@@ -20,11 +20,19 @@ public class UserRoleEntity {
     @OneToMany(mappedBy = "userRoleByUserRoleId")
     private Collection<UserEntity> usersById;
 
-    public int getId() {
+    public UserRoleEntity() {
+    }
+
+    public UserRoleEntity(String roleName, String roleDescription) {
+        this.roleName = roleName;
+        this.roleDescription = roleDescription;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -63,5 +71,14 @@ public class UserRoleEntity {
 
     public void setUsersById(Collection<UserEntity> usersById) {
         this.usersById = usersById;
+    }
+
+    @Override
+    public String toString() {
+        return "UserRoleEntity{" +
+                "id=" + id +
+                ", roleName='" + roleName + '\'' +
+                ", roleDescription='" + roleDescription + '\'' +
+                '}';
     }
 }
