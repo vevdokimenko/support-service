@@ -1,17 +1,18 @@
 package com.itvdn;
 
-import com.itvdn.entity.ServiceEntity;
+import com.itvdn.entity.ProfileEntity;
+import com.itvdn.entity.UserEntity;
+import com.itvdn.helper.ProfileHelper;
 import com.itvdn.helper.ServiceHelper;
-
-import java.util.List;
+import com.itvdn.helper.UserHelper;
+import com.itvdn.helper.UserRoleHelper;
 
 public class Main {
     public static void main(String[] args) {
+        ProfileHelper profileHelper = new ProfileHelper();
         ServiceHelper serviceHelper = new ServiceHelper();
-        List<ServiceEntity> serviceEntityList = serviceHelper.getServiceList();
+        UserHelper userHelper = new UserHelper();
+        UserRoleHelper userRoleHelper = new UserRoleHelper();
 
-        for (ServiceEntity se : serviceEntityList) {
-            System.out.println(se);
-        }
     }
 }

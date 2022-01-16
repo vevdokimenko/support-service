@@ -17,31 +17,23 @@ public class UserEntity {
     @Basic
     @Column(name = "password")
     private String password;
-    @Basic
-    @Column(name = "user_role_id")
-    private int userRoleId;
-    @Basic
-    @Column(name = "profile_id")
-    private int profileId;
-    @OneToMany(mappedBy = "userByUserId")
-    private Collection<IncidentEntity> incidentsById;
-    @ManyToOne
-    @JoinColumn(name = "user_role_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    private UserRoleEntity userRoleByUserRoleId;
-    @ManyToOne
-    @JoinColumn(name = "profile_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    private ProfileEntity profileByProfileId;
-    @OneToMany(mappedBy = "userByUserId")
-    private Collection<UserServiceEntity> userServicesById;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_role_id")
+    private UserRoleEntity userRole;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "profile_id")
+    private ProfileEntity profile;
 
     public UserEntity() {
     }
 
-    public UserEntity(String userName, String password, UserRoleEntity userRoleByUserRoleId, ProfileEntity profileByProfileId) {
+    public UserEntity(String userName, String password, UserRoleEntity userRole, ProfileEntity profile) {
         this.userName = userName;
         this.password = password;
-        this.userRoleByUserRoleId = userRoleByUserRoleId;
-        this.profileByProfileId = profileByProfileId;
+        this.userRole = userRole;
+        this.profile = profile;
     }
 
     public long getId() {
@@ -68,75 +60,43 @@ public class UserEntity {
         this.password = password;
     }
 
-    public int getUserRoleId() {
-        return userRoleId;
-    }
-
-    public void setUserRoleId(int userRoleId) {
-        this.userRoleId = userRoleId;
-    }
-
-    public int getProfileId() {
-        return profileId;
-    }
-
-    public void setProfileId(int profileId) {
-        this.profileId = profileId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserEntity that = (UserEntity) o;
-        return id == that.id && userRoleId == that.userRoleId && profileId == that.profileId && Objects.equals(userName, that.userName) && Objects.equals(password, that.password);
+        return id == that.id && userRole == that.userRole && profile == that.profile && Objects.equals(userName, that.userName) && Objects.equals(password, that.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userName, password, userRoleId, profileId);
+        return Objects.hash(id, userName, password, userRole, profile);
     }
 
-    public Collection<IncidentEntity> getIncidentsById() {
-        return incidentsById;
+    public UserRoleEntity getUserRole() {
+        return userRole;
     }
 
-    public void setIncidentsById(Collection<IncidentEntity> incidentsById) {
-        this.incidentsById = incidentsById;
+    public void setUserRole(UserRoleEntity userRole) {
+        this.userRole = userRole;
     }
 
-    public UserRoleEntity getUserRoleByUserRoleId() {
-        return userRoleByUserRoleId;
+    public ProfileEntity getProfile() {
+        return profile;
     }
 
-    public void setUserRoleByUserRoleId(UserRoleEntity userRoleByUserRoleId) {
-        this.userRoleByUserRoleId = userRoleByUserRoleId;
-    }
-
-    public ProfileEntity getProfileByProfileId() {
-        return profileByProfileId;
-    }
-
-    public void setProfileByProfileId(ProfileEntity profileByProfileId) {
-        this.profileByProfileId = profileByProfileId;
-    }
-
-    public Collection<UserServiceEntity> getUserServicesById() {
-        return userServicesById;
-    }
-
-    public void setUserServicesById(Collection<UserServiceEntity> userServicesById) {
-        this.userServicesById = userServicesById;
+    public void setProfile(ProfileEntity profile) {
+        this.profile = profile;
     }
 
     @Override
     public String toString() {
-        return "UserEntity{" +
+        return "\nUserEntity{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
-                ", userRoleByUserRoleId=" + userRoleByUserRoleId +
-                ", profileByProfileId=" + profileByProfileId +
+                ", userRole=" + userRole +
+                ", profile=" + profile +
                 '}';
     }
 }

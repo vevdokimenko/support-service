@@ -1,7 +1,9 @@
 package com.itvdn.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,8 +19,8 @@ public class UserRoleEntity {
     @Basic
     @Column(name = "role_description")
     private String roleDescription;
-    @OneToMany(mappedBy = "userRoleByUserRoleId")
-    private Collection<UserEntity> usersById;
+    @OneToMany(mappedBy = "userRole", fetch = FetchType.EAGER)
+    private List<UserEntity> users = new ArrayList<>();
 
     public UserRoleEntity() {
     }
@@ -52,6 +54,14 @@ public class UserRoleEntity {
         this.roleDescription = roleDescription;
     }
 
+    public List<UserEntity> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserEntity> users) {
+        this.users = users;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -65,17 +75,9 @@ public class UserRoleEntity {
         return Objects.hash(id, roleName, roleDescription);
     }
 
-    public Collection<UserEntity> getUsersById() {
-        return usersById;
-    }
-
-    public void setUsersById(Collection<UserEntity> usersById) {
-        this.usersById = usersById;
-    }
-
     @Override
     public String toString() {
-        return "UserRoleEntity{" +
+        return "\nUserRoleEntity{" +
                 "id=" + id +
                 ", roleName='" + roleName + '\'' +
                 ", roleDescription='" + roleDescription + '\'' +

@@ -2,6 +2,7 @@ package com.itvdn.entity;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -26,8 +27,8 @@ public class ProfileEntity {
     @Basic
     @Column(name = "postal_code")
     private String postalCode;
-    @OneToMany(mappedBy = "profileByProfileId")
-    private Collection<UserEntity> usersById;
+    @OneToMany(mappedBy = "profile")
+    private List<UserEntity> users;
 
     public ProfileEntity() {
     }
@@ -101,17 +102,17 @@ public class ProfileEntity {
         return Objects.hash(id, firstName, lastName, email, phoneNumber, postalCode);
     }
 
-    public Collection<UserEntity> getUsersById() {
-        return usersById;
+    public List<UserEntity> getUsers() {
+        return users;
     }
 
-    public void setUsersById(Collection<UserEntity> usersById) {
-        this.usersById = usersById;
+    public void setUsers(List<UserEntity> users) {
+        this.users = users;
     }
 
     @Override
     public String toString() {
-        return "ProfileEntity{" +
+        return "\nProfileEntity{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
