@@ -1,7 +1,5 @@
 package com.itvdn;
 
-import com.itvdn.entity.ProfileEntity;
-import com.itvdn.entity.UserEntity;
 import com.itvdn.helper.ProfileHelper;
 import com.itvdn.helper.ServiceHelper;
 import com.itvdn.helper.UserHelper;
