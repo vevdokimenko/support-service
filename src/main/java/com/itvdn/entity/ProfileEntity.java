@@ -10,7 +10,7 @@ public class ProfileEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
-    private int id;
+    private long id;
     @Basic
     @Column(name = "first_name")
     private String firstName;
@@ -29,11 +29,22 @@ public class ProfileEntity {
     @OneToMany(mappedBy = "profileByProfileId")
     private Collection<UserEntity> usersById;
 
-    public int getId() {
+    public ProfileEntity() {
+    }
+
+    public ProfileEntity(String firstName, String lastName, String email, String phoneNumber, String postalCode) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.postalCode = postalCode;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -96,5 +107,17 @@ public class ProfileEntity {
 
     public void setUsersById(Collection<UserEntity> usersById) {
         this.usersById = usersById;
+    }
+
+    @Override
+    public String toString() {
+        return "ProfileEntity{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                '}';
     }
 }
