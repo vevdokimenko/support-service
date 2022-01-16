@@ -12,21 +12,27 @@ public class ProfileEntity {
     @Id
     @Column(name = "id")
     private long id;
+
     @Basic
     @Column(name = "first_name")
     private String firstName;
+
     @Basic
     @Column(name = "last_name")
     private String lastName;
+
     @Basic
     @Column(name = "email")
     private String email;
+
     @Basic
     @Column(name = "phone_number")
     private String phoneNumber;
+
     @Basic
     @Column(name = "postal_code")
     private String postalCode;
+
     @OneToMany(mappedBy = "profile")
     private List<UserEntity> users;
 

@@ -1,7 +1,6 @@
 package com.itvdn.entity;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -11,9 +10,11 @@ public class UserEntity {
     @Id
     @Column(name = "id")
     private long id;
+
     @Basic
     @Column(name = "user_name")
     private String userName;
+
     @Basic
     @Column(name = "password")
     private String password;

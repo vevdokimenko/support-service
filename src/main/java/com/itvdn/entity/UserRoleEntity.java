@@ -2,7 +2,6 @@ package com.itvdn.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,12 +12,15 @@ public class UserRoleEntity {
     @Id
     @Column(name = "id")
     private long id;
+
     @Basic
     @Column(name = "role_name")
     private String roleName;
+
     @Basic
     @Column(name = "role_description")
     private String roleDescription;
+
     @OneToMany(mappedBy = "userRole", fetch = FetchType.EAGER)
     private List<UserEntity> users = new ArrayList<>();
 
