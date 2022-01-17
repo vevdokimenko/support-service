@@ -9,28 +9,39 @@ public class IncidentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
-    private int id;
+    private long id;
+
     @Basic
     @Column(name = "service_name")
     private String serviceName;
+
     @Basic
     @Column(name = "is_active")
     private byte isActive;
+
     @Basic
     @Column(name = "problem_description")
     private String problemDescription;
-    @Basic
-    @Column(name = "user_id")
-    private int userId;
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    private UserEntity userByUserId;
 
-    public int getId() {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
+
+    public IncidentEntity() {
+    }
+
+    public IncidentEntity(String serviceName, byte isActive, String problemDescription, UserEntity user) {
+        this.serviceName = serviceName;
+        this.isActive = isActive;
+        this.problemDescription = problemDescription;
+        this.user = user;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -58,32 +69,35 @@ public class IncidentEntity {
         this.problemDescription = problemDescription;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         IncidentEntity that = (IncidentEntity) o;
-        return id == that.id && isActive == that.isActive && userId == that.userId && Objects.equals(serviceName, that.serviceName) && Objects.equals(problemDescription, that.problemDescription);
+        return id == that.id && isActive == that.isActive && Objects.equals(serviceName, that.serviceName) && Objects.equals(problemDescription, that.problemDescription);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, serviceName, isActive, problemDescription, userId);
+        return Objects.hash(id, serviceName, isActive, problemDescription);
     }
 
-    public UserEntity getUserByUserId() {
-        return userByUserId;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUserByUserId(UserEntity userByUserId) {
-        this.userByUserId = userByUserId;
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "IncidentEntity{" +
+                "id=" + id +
+                ", serviceName='" + serviceName + '\'' +
+                ", isActive=" + isActive +
+                ", problemDescription='" + problemDescription + '\'' +
+                ", user=" + user.getId() +
+                '}';
     }
 }

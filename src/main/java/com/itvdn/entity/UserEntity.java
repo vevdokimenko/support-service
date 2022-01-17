@@ -1,6 +1,8 @@
 package com.itvdn.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -26,6 +28,9 @@ public class UserEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "profile_id")
     private ProfileEntity profile;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    List<IncidentEntity> incidentEntityList = new ArrayList<>();
 
     public UserEntity() {
     }
@@ -88,6 +93,14 @@ public class UserEntity {
 
     public void setProfile(ProfileEntity profile) {
         this.profile = profile;
+    }
+
+    public List<IncidentEntity> getIncidentEntityList() {
+        return incidentEntityList;
+    }
+
+    public void setIncidentEntityList(List<IncidentEntity> incidentEntityList) {
+        this.incidentEntityList = incidentEntityList;
     }
 
     @Override
