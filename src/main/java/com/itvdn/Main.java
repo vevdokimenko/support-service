@@ -3,16 +3,34 @@ package com.itvdn;
 import com.itvdn.entity.*;
 import com.itvdn.helper.*;
 
-public class Main {
-    public static void main(String[] args) {
-        ProfileHelper profileHelper = new ProfileHelper();
-        ServiceHelper serviceHelper = new ServiceHelper();
-        UserHelper userHelper = new UserHelper();
-        UserRoleHelper userRoleHelper = new UserRoleHelper();
-        IncidentHelper incidentHelper = new IncidentHelper();
+import java.util.Scanner;
 
-        for (UserEntity item : serviceHelper.getServiceById(2).getUserEntities()){
-            System.out.println(item);
+public class Main {
+    private static Scanner sc = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        Auth auth = new Auth();
+
+        String command = "";
+        while (!command.equals("exit")) {
+            System.out.println(auth.getActiveUserName() + ", welcome!");
+            System.out.println("Type command below, or \"exit\" to exit program");
+            command = sc.nextLine();
+
+            switch (command) {
+                case "exit":
+                    break;
+                case "fetch_all_users":
+                    fetchAllUsers();
+                    break;
+                default:
+                    System.err.println("Unknown command.");
+                    break;
+            }
         }
+    }
+
+    private static void fetchAllUsers() {
+        System.out.println("fetch_all_users");
     }
 }
