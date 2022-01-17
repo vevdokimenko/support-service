@@ -1,6 +1,12 @@
 package com.itvdn.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,6 +37,15 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     List<IncidentEntity> incidentEntityList = new ArrayList<>();
+
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
+    @JoinTable(
+            name = "user_service",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "service_id")}
+    )
+    List<ServiceEntity> serviceEntities = new ArrayList<>();
 
     public UserEntity() {
     }
@@ -101,6 +116,14 @@ public class UserEntity {
 
     public void setIncidentEntityList(List<IncidentEntity> incidentEntityList) {
         this.incidentEntityList = incidentEntityList;
+    }
+
+    public List<ServiceEntity> getServiceEntities() {
+        return serviceEntities;
+    }
+
+    public void setServiceEntities(List<ServiceEntity> serviceEntities) {
+        this.serviceEntities = serviceEntities;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.itvdn;
 
-import com.itvdn.entity.IncidentEntity;
+import com.itvdn.entity.*;
 import com.itvdn.helper.*;
 
 public class Main {
@@ -11,9 +11,8 @@ public class Main {
         UserRoleHelper userRoleHelper = new UserRoleHelper();
         IncidentHelper incidentHelper = new IncidentHelper();
 
-        for (IncidentEntity item : userHelper.getUserById(5).getIncidentEntityList()){
+        for (UserEntity item : serviceHelper.getServiceById(2).getUserEntities()){
             System.out.println(item);
         }
-
     }
 }

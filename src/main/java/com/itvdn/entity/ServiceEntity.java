@@ -1,7 +1,11 @@
 package com.itvdn.entity;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,20 +15,25 @@ public class ServiceEntity {
     @Id
     @Column(name = "id")
     private long id;
+
     @Basic
     @Column(name = "service_name")
     private String serviceName;
+
     @Basic
     @Column(name = "is_active")
     private boolean isActive;
+
     @Basic
     @Column(name = "service_month_price")
     private double serviceMonthPrice;
+
     @Basic
     @Column(name = "customer_id")
     private int customerId;
-    @OneToMany(mappedBy = "serviceByServiceId")
-    private Collection<UserServiceEntity> userServicesById;
+
+    @ManyToMany(mappedBy = "serviceEntities", fetch = FetchType.EAGER)
+    private List<UserEntity> userEntities;
 
     public ServiceEntity() {
     }
@@ -89,12 +98,20 @@ public class ServiceEntity {
         return Objects.hash(id, serviceName, isActive, serviceMonthPrice, customerId);
     }
 
-    public Collection<UserServiceEntity> getUserServicesById() {
-        return userServicesById;
+    public boolean isActive() {
+        return isActive;
     }
 
-    public void setUserServicesById(Collection<UserServiceEntity> userServicesById) {
-        this.userServicesById = userServicesById;
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public List<UserEntity> getUserEntities() {
+        return userEntities;
+    }
+
+    public void setUserEntities(List<UserEntity> userEntities) {
+        this.userEntities = userEntities;
     }
 
     @Override
