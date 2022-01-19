@@ -3,7 +3,7 @@ package com.itvdn;
 import java.util.Scanner;
 
 public class Main {
-    private static Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
         Auth auth = new Auth();
@@ -25,9 +25,5 @@ public class Main {
                     break;
             }
         }
-    }
-
-    private static void fetchAllUsers() {
-        System.out.println("fetch_all_users");
     }
 }
