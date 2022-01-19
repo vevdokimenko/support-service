@@ -1,8 +1,5 @@
 package com.itvdn;
 
-import com.itvdn.entity.*;
-import com.itvdn.helper.*;
-
 import java.util.Scanner;
 
 public class Main {
@@ -10,10 +7,10 @@ public class Main {
 
     public static void main(String[] args) {
         Auth auth = new Auth();
+        MyQuery query = new MyQuery();
 
         String command = "";
         while (!command.equals("exit")) {
-            System.out.println(auth.getActiveUserName() + ", welcome!");
             System.out.println("Type command below, or \"exit\" to exit program");
             command = sc.nextLine();
 
@@ -21,7 +18,7 @@ public class Main {
                 case "exit":
                     break;
                 case "fetch_all_users":
-                    fetchAllUsers();
+                    query.fetchAllUsers(auth.getActiveUser(), command);
                     break;
                 default:
                     System.err.println("Unknown command.");
