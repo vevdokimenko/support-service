@@ -1,4 +1,4 @@
-package com.itvdn;
+package com.itvdn.utils;
 
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;

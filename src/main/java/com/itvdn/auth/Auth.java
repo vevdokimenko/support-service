@@ -1,4 +1,4 @@
-package com.itvdn;
+package com.itvdn.auth;
 
 import com.itvdn.entity.UserEntity;
 import com.itvdn.helper.UserHelper;

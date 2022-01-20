@@ -1,4 +1,4 @@
-package com.itvdn;
+package com.itvdn.auth;
 
 import java.util.Objects;
 

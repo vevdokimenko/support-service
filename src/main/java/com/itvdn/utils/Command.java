@@ -1,5 +1,6 @@
-package com.itvdn;
+package com.itvdn.utils;
 
+import com.itvdn.auth.Permission;
 import com.itvdn.entity.IncidentEntity;
 import com.itvdn.entity.UserEntity;
 import com.itvdn.helper.IncidentHelper;
@@ -88,5 +89,33 @@ public class Command {
         } else {
             System.err.println("This command is not allowed for you");
         }
+    }
+
+    public void addUser(UserEntity activeUser, String input) {
+        //TODO
+    }
+
+    public void updateUserId(UserEntity activeUser, String input, String id) {
+        //TODO
+    }
+
+    public void deleteUserId(UserEntity activeUser, String input, String id) {
+        //TODO
+    }
+
+    public void subscribeServiceId(UserEntity activeUser, String input, String id) {
+        //TODO
+    }
+
+    public void unsubscribeServiceId(UserEntity activeUser, String input, String id) {
+        //TODO
+    }
+
+    public void createIncident(UserEntity activeUser, String input) {
+        //TODO
+    }
+
+    public void closeIncident(UserEntity activeUser, String input) {
+        //TODO
     }
 }

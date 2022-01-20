@@ -1,5 +1,8 @@
 package com.itvdn;
 
+import com.itvdn.auth.Auth;
+import com.itvdn.utils.Command;
+
 import java.util.Scanner;
 
 public class Main {
@@ -31,6 +34,27 @@ public class Main {
                     break;
                 case "fetch_user_by_{}":
                     command.fetchUserById(auth.getActiveUser(), input, id);
+                    break;
+                case "add_user":
+                    command.addUser(auth.getActiveUser(), input);
+                    break;
+                case "update_user_{}":
+                    command.updateUserId(auth.getActiveUser(), input, id);
+                    break;
+                case "delete_user_{}":
+                    command.deleteUserId(auth.getActiveUser(), input, id);
+                    break;
+                case "subscribe_service_{}":
+                    command.subscribeServiceId(auth.getActiveUser(), input, id);
+                    break;
+                case "unsubscribe_service_{}":
+                    command.unsubscribeServiceId(auth.getActiveUser(), input, id);
+                    break;
+                case "create_incident":
+                    command.createIncident(auth.getActiveUser(), input);
+                    break;
+                case "close_incident":
+                    command.closeIncident(auth.getActiveUser(), input);
                     break;
                 default:
                     System.err.println("Unknown command.");

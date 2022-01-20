@@ -1,8 +1,7 @@
 package com.itvdn.helper;
 
-import com.itvdn.HibernateUtil;
+import com.itvdn.utils.HibernateUtil;
 import com.itvdn.entity.IncidentEntity;
-import com.itvdn.entity.UserEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
