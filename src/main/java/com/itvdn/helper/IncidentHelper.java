@@ -18,7 +18,7 @@ public class IncidentHelper {
         sessionFactory = HibernateUtil.getSessionFactory();
     }
 
-    public List<IncidentEntity> getIncidentList(){
+    public List<IncidentEntity> getIncidentList() {
         // открыть сессию - для манипуляции с персист. объектами
         Session session = sessionFactory.openSession();
 
@@ -36,7 +36,7 @@ public class IncidentHelper {
         return incidentEntityList;
     }
 
-    public List<IncidentEntity> getActiveIncidentList(){
+    public List<IncidentEntity> getActiveIncidentList() {
         Session session = sessionFactory.openSession();
 
         CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -58,7 +58,7 @@ public class IncidentHelper {
         return incident;
     }
 
-    public void addIncident(IncidentEntity incident){
+    public void addIncident(IncidentEntity incident) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.save(incident); // сгенерит ID и вставит в объект
@@ -68,11 +68,14 @@ public class IncidentHelper {
 
     public void closeIncident(long id) {
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        IncidentEntity incident = session.get(IncidentEntity.class, id);
-        incident.setIsActive(false);
-        session.save(incident);
-        session.getTransaction().commit();
-        session.close();
+        try (session) {
+            session.beginTransaction();
+            IncidentEntity incident = session.get(IncidentEntity.class, id);
+            incident.setIsActive(false);
+            session.save(incident);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.err.println("No such incident.");
+        }
     }
 }

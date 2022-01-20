@@ -57,26 +57,19 @@ public class Command {
 
     public void fetchAllUsers() {
         UserHelper userHelper = new UserHelper();
-        for (UserEntity item : userHelper.getUserList()) {
-            System.out.println(item);
-        }
+        for (UserEntity item : userHelper.getUserList()) System.out.println(item);
     }
 
     public void fetchAllIncidents() {
-        for (IncidentEntity item : new IncidentHelper().getIncidentList()) {
-            System.out.println(item);
-        }
+        for (IncidentEntity item : new IncidentHelper().getIncidentList()) System.out.println(item);
     }
 
     public void fetchAllActiveIncidents() {
-        for (IncidentEntity item : new IncidentHelper().getActiveIncidentList()) {
-            System.out.println(item);
-        }
+        for (IncidentEntity item : new IncidentHelper().getActiveIncidentList()) System.out.println(item);
     }
 
-    public void fetchUserById(String strId) {
-        long id = Long.parseLong(strId);
-        System.out.println(new UserHelper().getUserById(id));
+    public void fetchUserById(String id) {
+        System.out.println(new UserHelper().getUserById(Long.parseLong(id)));
     }
 
     public void addUser(UserEntity activeUser, String command) {
@@ -120,9 +113,15 @@ public class Command {
         for (IncidentEntity item : helper.getActiveIncidentList()) {
             System.out.println(item.getId() + " " + item.getServiceName() + " " + item.getProblemDescription());
         }
-        long incidentId = Long.parseLong(new Scanner(System.in).nextLine());
+
+        long incidentId;
+        try {
+            incidentId = Long.parseLong(new Scanner(System.in).nextLine());
+        } catch (Exception e) {
+            System.err.println("Input should be a number.");
+            return;
+        }
 
         helper.closeIncident(incidentId);
-        System.out.println("Incident " + incidentId + " closed.");
     }
 }
