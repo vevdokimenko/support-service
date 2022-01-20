@@ -8,7 +8,7 @@ import com.itvdn.helper.UserHelper;
 import java.util.Arrays;
 import java.util.List;
 
-public class MyQuery {
+public class Command {
     private final List<Permission> permissions = Arrays.asList(
             new Permission("fetch_all_users", "SUPER_ADMIN"),
             new Permission("fetch_all_users", "ADMIN"),

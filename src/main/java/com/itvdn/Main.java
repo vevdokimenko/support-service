@@ -7,30 +7,30 @@ public class Main {
 
     public static void main(String[] args) {
         Auth auth = new Auth();
-        MyQuery query = new MyQuery();
-        String command = "";
+        Command command = new Command();
+        String input = "";
 
-        while (!command.equals("exit")) {
+        while (!input.equals("exit")) {
             System.out.println("Type command below, or \"exit\" to exit program");
-            command = sc.nextLine();
-            String id = command.replaceAll("[^\\d+]","");
-            command = command.replaceAll("\\d+", "");
+            input = sc.nextLine();
+            String id = input.replaceAll("[^\\d+]","");
+            input = input.replaceAll("\\d+", "");
 
-            switch (command) {
+            switch (input) {
                 case "exit":
                     break;
                 case "fetch_all_users":
                     System.out.println(id);
-                    query.fetchAllUsers(auth.getActiveUser(), command);
+                    command.fetchAllUsers(auth.getActiveUser(), input);
                     break;
                 case "fetch_all_incidents":
-                    query.fetchAllIncidents(auth.getActiveUser(), command);
+                    command.fetchAllIncidents(auth.getActiveUser(), input);
                     break;
                 case "fetch_all_active_incidents":
-                    query.fetchAllActiveIncidents(auth.getActiveUser(), command);
+                    command.fetchAllActiveIncidents(auth.getActiveUser(), input);
                     break;
                 case "fetch_user_by_{}":
-                    query.fetchUserById(auth.getActiveUser(), command, id);
+                    command.fetchUserById(auth.getActiveUser(), input, id);
                     break;
                 default:
                     System.err.println("Unknown command.");
