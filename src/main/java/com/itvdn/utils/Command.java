@@ -1,26 +1,13 @@
 package com.itvdn.utils;
 
 import com.itvdn.entity.IncidentEntity;
-import com.itvdn.entity.PermissionEntity;
 import com.itvdn.entity.UserEntity;
 import com.itvdn.helper.IncidentHelper;
-import com.itvdn.helper.PermissionHelper;
 import com.itvdn.helper.UserHelper;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class Command {
-    private final List<PermissionEntity> permissions = new PermissionHelper().getPermissionsList();
-
-    public boolean isAllowed(UserEntity user, String command) {
-        boolean result = permissions.contains(
-                new PermissionEntity(command, user.getUserRole().getRoleName())
-        );
-        if (!result) System.err.println("This command is not allowed for you");
-        return result;
-    }
-
     public void fetchAllUsers() {
         UserHelper userHelper = new UserHelper();
         for (UserEntity item : userHelper.getUserList()) System.out.println(item);

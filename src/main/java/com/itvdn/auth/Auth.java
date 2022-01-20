@@ -1,12 +1,17 @@
 package com.itvdn.auth;
 
+import com.itvdn.entity.PermissionEntity;
 import com.itvdn.entity.UserEntity;
+import com.itvdn.helper.PermissionHelper;
 import com.itvdn.helper.UserHelper;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Auth {
     private UserEntity activeUser;
+
+    private final List<PermissionEntity> permissions = new PermissionHelper().getPermissionsList();
 
     public Auth() {
         boolean isAccessGranted = false;
@@ -38,5 +43,13 @@ public class Auth {
 
     public UserEntity getActiveUser() {
         return activeUser;
+    }
+
+    public boolean isAllowed(UserEntity user, String command) {
+        boolean result = permissions.contains(
+                new PermissionEntity(command, user.getUserRole().getRoleName())
+        );
+        if (!result) System.err.println("This command is not allowed for you");
+        return result;
     }
 }

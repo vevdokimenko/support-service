@@ -12,7 +12,8 @@ public class Main {
     private static final Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        UserEntity activeUser = new Auth().getActiveUser();
+        Auth auth = new Auth();
+        UserEntity activeUser = auth.getActiveUser();
         Command command = new Command();
         String input = "";
 
@@ -26,16 +27,16 @@ public class Main {
                 case "exit":
                     break;
                 case "fetch_all_users":
-                    if (command.isAllowed(activeUser, input)) command.fetchAllUsers();
+                    if (auth.isAllowed(activeUser, input)) command.fetchAllUsers();
                     break;
                 case "fetch_all_incidents":
-                    if (command.isAllowed(activeUser, input)) command.fetchAllIncidents();
+                    if (auth.isAllowed(activeUser, input)) command.fetchAllIncidents();
                     break;
                 case "fetch_all_active_incidents":
-                    if (command.isAllowed(activeUser, input)) command.fetchAllActiveIncidents();
+                    if (auth.isAllowed(activeUser, input)) command.fetchAllActiveIncidents();
                     break;
                 case "fetch_user_by_{}":
-                    if (command.isAllowed(activeUser, input)) command.fetchUserById(id);
+                    if (auth.isAllowed(activeUser, input)) command.fetchUserById(id);
                     break;
                 case "add_user":
                     command.addUser(activeUser, input);
@@ -53,10 +54,10 @@ public class Main {
                     command.unsubscribeServiceId(activeUser, input, id);
                     break;
                 case "create_incident":
-                    if (command.isAllowed(activeUser, input)) command.createIncident(activeUser);
+                    if (auth.isAllowed(activeUser, input)) command.createIncident(activeUser);
                     break;
                 case "close_incident":
-                    if (command.isAllowed(activeUser, input)) command.closeIncident();
+                    if (auth.isAllowed(activeUser, input)) command.closeIncident();
                     break;
                 default:
                     System.err.println("Unknown command.");
