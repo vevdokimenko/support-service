@@ -1,41 +1,28 @@
 package com.itvdn.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "user_service", schema = "support-service")
-@IdClass(UserServiceEntityPK.class)
-public class UserServiceEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UserServiceEntity implements Serializable {
     @Id
-    @Column(name = "service_id")
-    private int serviceId;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "service_id")
+    private ServiceEntity service;
+
     @Id
-    @Column(name = "user_id")
-    private int userId;
-    @ManyToOne
-    @JoinColumn(name = "service_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    private ServiceEntity serviceByServiceId;
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    private UserEntity userByUserId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
-    public int getServiceId() {
-        return serviceId;
+    public UserServiceEntity() {
     }
 
-    public void setServiceId(int serviceId) {
-        this.serviceId = serviceId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public UserServiceEntity(ServiceEntity service, UserEntity user) {
+        this.service = service;
+        this.user = user;
     }
 
     @Override
@@ -43,27 +30,35 @@ public class UserServiceEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserServiceEntity that = (UserServiceEntity) o;
-        return serviceId == that.serviceId && userId == that.userId;
+        return service.equals(that.service) && user.equals(that.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(serviceId, userId);
+        return Objects.hash(service, user);
     }
 
-    public ServiceEntity getServiceByServiceId() {
-        return serviceByServiceId;
+    public ServiceEntity getService() {
+        return service;
     }
 
-    public void setServiceByServiceId(ServiceEntity serviceByServiceId) {
-        this.serviceByServiceId = serviceByServiceId;
+    public void setService(ServiceEntity service) {
+        this.service = service;
     }
 
-    public UserEntity getUserByUserId() {
-        return userByUserId;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUserByUserId(UserEntity userByUserId) {
-        this.userByUserId = userByUserId;
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "UserServiceEntity{" +
+                "service=" + service.getServiceName() +
+                ", user=" + user.getUserName() +
+                '}';
     }
 }
