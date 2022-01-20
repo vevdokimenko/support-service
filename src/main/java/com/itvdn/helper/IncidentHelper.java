@@ -27,7 +27,6 @@ public class IncidentHelper {
         // объект-конструктор запросов для Criteria API
         CriteriaBuilder cb = session.getCriteriaBuilder();// не использовать session.createCriteria, т.к. deprecated
         CriteriaQuery<IncidentEntity> cq = cb.createQuery(IncidentEntity.class);
-        Root<IncidentEntity> root = cq.from(IncidentEntity.class);// первостепенный, корневой entity (в sql запросе - from)
 
         //этап выполнения запроса
         Query query = session.createQuery(cq);

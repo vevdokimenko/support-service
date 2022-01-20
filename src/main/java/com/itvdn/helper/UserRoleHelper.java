@@ -27,7 +27,6 @@ public class UserRoleHelper {
         // объект-конструктор запросов для Criteria API
         CriteriaBuilder cb = session.getCriteriaBuilder();// не использовать session.createCriteria, т.к. deprecated
         CriteriaQuery<UserRoleEntity> cq = cb.createQuery(UserRoleEntity.class);
-        Root<UserRoleEntity> root = cq.from(UserRoleEntity.class);// первостепенный, корневой entity (в sql запросе - from)
 
         //этап выполнения запроса
         Query query = session.createQuery(cq);

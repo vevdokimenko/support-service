@@ -8,7 +8,6 @@ import org.hibernate.SessionFactory;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class ServiceHelper {
@@ -27,7 +26,6 @@ public class ServiceHelper {
         // объект-конструктор запросов для Criteria API
         CriteriaBuilder cb = session.getCriteriaBuilder();// не использовать session.createCriteria, т.к. deprecated
         CriteriaQuery<ServiceEntity> cq = cb.createQuery(ServiceEntity.class);
-        Root<ServiceEntity> root = cq.from(ServiceEntity.class);// первостепенный, корневой entity (в sql запросе - from)
 
         //этап выполнения запроса
         Query query = session.createQuery(cq);

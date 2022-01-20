@@ -1,9 +1,7 @@
 package com.itvdn;
 
 import com.itvdn.auth.Auth;
-import com.itvdn.entity.PermissionEntity;
 import com.itvdn.entity.UserEntity;
-import com.itvdn.helper.PermissionHelper;
 import com.itvdn.utils.Command;
 
 import java.util.Scanner;
@@ -39,19 +37,19 @@ public class Main {
                     if (auth.isAllowed(activeUser, input)) command.fetchUserById(id);
                     break;
                 case "add_user":
-                    command.addUser(activeUser, input);
+                    if (auth.isAllowed(activeUser, input)) command.addUser();
                     break;
                 case "update_user_{}":
-                    command.updateUserId(activeUser, input, id);
+                    if (auth.isAllowed(activeUser, input)) command.updateUserId(id);
                     break;
                 case "delete_user_{}":
-                    command.deleteUserId(activeUser, input, id);
+                    if (auth.isAllowed(activeUser, input)) command.deleteUserId(id);
                     break;
                 case "subscribe_service_{}":
-                    command.subscribeServiceId(activeUser, input, id);
+                    if (auth.isAllowed(activeUser, input)) command.subscribeServiceId(activeUser, id);
                     break;
                 case "unsubscribe_service_{}":
-                    command.unsubscribeServiceId(activeUser, input, id);
+                    if (auth.isAllowed(activeUser, input)) command.unsubscribeServiceId(activeUser, id);
                     break;
                 case "create_incident":
                     if (auth.isAllowed(activeUser, input)) command.createIncident(activeUser);

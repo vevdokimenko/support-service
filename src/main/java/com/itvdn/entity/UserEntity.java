@@ -2,11 +2,8 @@ package com.itvdn.entity;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -118,7 +115,7 @@ public class UserEntity {
         this.incidentEntityList = incidentEntityList;
     }
 
-    public List<ServiceEntity> getServiceEntities() {
+    public List<ServiceEntity> getServiceEntityList() {
         return serviceEntities;
     }
 

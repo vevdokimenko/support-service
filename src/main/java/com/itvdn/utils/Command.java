@@ -1,9 +1,13 @@
 package com.itvdn.utils;
 
 import com.itvdn.entity.IncidentEntity;
+import com.itvdn.entity.ServiceEntity;
 import com.itvdn.entity.UserEntity;
+import com.itvdn.entity.UserServiceEntity;
 import com.itvdn.helper.IncidentHelper;
+import com.itvdn.helper.ServiceHelper;
 import com.itvdn.helper.UserHelper;
+import com.itvdn.helper.UserServiceHelper;
 
 import java.util.Scanner;
 
@@ -25,24 +29,34 @@ public class Command {
         System.out.println(new UserHelper().getUserById(Long.parseLong(id)));
     }
 
-    public void addUser(UserEntity activeUser, String command) {
+    public void addUser() {
         //TODO
     }
 
-    public void updateUserId(UserEntity activeUser, String command, String id) {
+    public void updateUserId(String id) {
         //TODO
     }
 
-    public void deleteUserId(UserEntity activeUser, String command, String id) {
+    public void deleteUserId(String id) {
         //TODO
     }
 
-    public void subscribeServiceId(UserEntity activeUser, String command, String id) {
-        //TODO
+    public void subscribeServiceId(UserEntity activeUser, String id) {
+        try {
+            ServiceEntity service = new ServiceHelper().getServiceById(Long.parseLong(id));
+            new UserServiceHelper().addUserService(new UserServiceEntity(service, activeUser));
+        } catch (Exception e) {
+            System.err.println("No such service.");
+        }
     }
 
-    public void unsubscribeServiceId(UserEntity activeUser, String command, String id) {
-        //TODO
+    public void unsubscribeServiceId(UserEntity activeUser, String id) {
+        try {
+            ServiceEntity service = new ServiceHelper().getServiceById(Long.parseLong(id));
+            new UserServiceHelper().deleteUserService(activeUser, service);
+        } catch (Exception e) {
+            System.err.println("No such service.");
+        }
     }
 
     public void createIncident(UserEntity activeUser) {

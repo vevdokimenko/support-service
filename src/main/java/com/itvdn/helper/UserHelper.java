@@ -9,7 +9,6 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Selection;
 import java.util.List;
 
 public class UserHelper {
@@ -28,7 +27,6 @@ public class UserHelper {
         // объект-конструктор запросов для Criteria API
         CriteriaBuilder cb = session.getCriteriaBuilder();// не использовать session.createCriteria, т.к. deprecated
         CriteriaQuery<UserEntity> cq = cb.createQuery(UserEntity.class);
-        Root<UserEntity> root = cq.from(UserEntity.class);// первостепенный, корневой entity (в sql запросе - from)
 
         //этап выполнения запроса
         Query query = session.createQuery(cq);
