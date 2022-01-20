@@ -130,3 +130,39 @@ VALUES ('VPN', FALSE, 'Problem with vpn', 3),
        ('TV', TRUE, 'Problem with tv', 4),
        ('VPN', TRUE, 'Problem with vpn', 5),
        ('Serials', TRUE, 'Problem with serials', 5);
+
+-- CREATING permissions --
+CREATE TABLE IF NOT EXISTS permission
+(
+    id      INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    command VARCHAR(30) NOT NULL,
+    role    VARCHAR(30) NOT NULL
+);
+
+-- FILLING permissions --
+INSERT INTO permission(command, role)
+VALUES ('fetch_all_users', 'SUPER_ADMIN'),
+       ('fetch_all_users', 'ADMIN'),
+       ('fetch_all_incidents', 'SUPER_ADMIN'),
+       ('fetch_all_incidents', 'ADMIN'),
+       ('fetch_all_active_incidents', 'SUPER_ADMIN'),
+       ('fetch_all_active_incidents', 'ADMIN'),
+       ('fetch_user_by_{}', 'SUPER_ADMIN'),
+       ('fetch_user_by_{}', 'ADMIN'),
+       ('add_user', 'SUPER_ADMIN'),
+       ('add_user', 'ADMIN'),
+       ('update_user_{}', 'SUPER_ADMIN'),
+       ('update_user_{}', 'ADMIN'),
+       ('delete_user_{}', 'SUPER_ADMIN'),
+       ('delete_user_{}', 'ADMIN'),
+       ('subscribe_service_{}', 'SUPER_ADMIN'),
+       ('subscribe_service_{}', 'ADMIN'),
+       ('subscribe_service_{}', 'USER'),
+       ('unsubscribe_service_{}', 'SUPER_ADMIN'),
+       ('unsubscribe_service_{}', 'ADMIN'),
+       ('unsubscribe_service_{}', 'USER'),
+       ('create_incident', 'SUPER_ADMIN'),
+       ('create_incident', 'ADMIN'),
+       ('create_incident', 'USER'),
+       ('close_incident', 'SUPER_ADMIN'),
+       ('close_incident', 'ADMIN')

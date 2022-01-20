@@ -43,6 +43,7 @@
         <mapping class="com.itvdn.entity.UserRoleEntity"/>
         <mapping class="com.itvdn.entity.ServiceEntity"/>
         <mapping class="com.itvdn.entity.IncidentEntity"/>
+        <mapping class="com.itvdn.entity.PermissionEntity"/>
 
     </session-factory>
 

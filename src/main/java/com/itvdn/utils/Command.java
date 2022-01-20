@@ -1,56 +1,22 @@
 package com.itvdn.utils;
 
-import com.itvdn.auth.Permission;
 import com.itvdn.entity.IncidentEntity;
+import com.itvdn.entity.PermissionEntity;
 import com.itvdn.entity.UserEntity;
 import com.itvdn.helper.IncidentHelper;
+import com.itvdn.helper.PermissionHelper;
 import com.itvdn.helper.UserHelper;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class Command {
-    private final List<Permission> permissions = Arrays.asList(
-            new Permission("fetch_all_users", "SUPER_ADMIN"),
-            new Permission("fetch_all_users", "ADMIN"),
-
-            new Permission("fetch_all_incidents", "SUPER_ADMIN"),
-            new Permission("fetch_all_incidents", "ADMIN"),
-
-            new Permission("fetch_all_active_incidents", "SUPER_ADMIN"),
-            new Permission("fetch_all_active_incidents", "ADMIN"),
-
-            new Permission("fetch_user_by_{}", "SUPER_ADMIN"),
-            new Permission("fetch_user_by_{}", "ADMIN"),
-
-            new Permission("add_user", "SUPER_ADMIN"),
-            new Permission("add_user", "ADMIN"),
-
-            new Permission("update_user_{}", "SUPER_ADMIN"),
-            new Permission("update_user_{}", "ADMIN"),
-
-            new Permission("delete_user_{}", "SUPER_ADMIN"),
-            new Permission("delete_user_{}", "ADMIN"),
-
-            new Permission("subscribe_service_{}", "SUPER_ADMIN"),
-            new Permission("subscribe_service_{}", "ADMIN"),
-            new Permission("subscribe_service_{}", "USER"),
-
-            new Permission("unsubscribe_service_{}", "SUPER_ADMIN"),
-            new Permission("unsubscribe_service_{}", "ADMIN"),
-            new Permission("unsubscribe_service_{}", "USER"),
-
-            new Permission("create_incident", "SUPER_ADMIN"),
-            new Permission("create_incident", "ADMIN"),
-            new Permission("create_incident", "USER"),
-
-            new Permission("close_incident", "SUPER_ADMIN"),
-            new Permission("close_incident", "ADMIN")
-    );
+    private final List<PermissionEntity> permissions = new PermissionHelper().getPermissionsList();
 
     public boolean isAllowed(UserEntity user, String command) {
-        boolean result = permissions.contains(new Permission(command, user.getUserRole().getRoleName()));
+        boolean result = permissions.contains(
+                new PermissionEntity(command, user.getUserRole().getRoleName())
+        );
         if (!result) System.err.println("This command is not allowed for you");
         return result;
     }

@@ -1,7 +1,9 @@
 package com.itvdn;
 
 import com.itvdn.auth.Auth;
+import com.itvdn.entity.PermissionEntity;
 import com.itvdn.entity.UserEntity;
+import com.itvdn.helper.PermissionHelper;
 import com.itvdn.utils.Command;
 
 import java.util.Scanner;
