@@ -51,8 +51,8 @@ public class Command {
         return permissions.contains(new Permission(command, user.getUserRole().getRoleName()));
     }
 
-    public void fetchAllUsers(UserEntity user, String command) {
-        if (isAllowed(user, command)) {
+    public void fetchAllUsers(UserEntity activeUser, String command) {
+        if (isAllowed(activeUser, command)) {
             UserHelper userHelper = new UserHelper();
             for (UserEntity item : userHelper.getUserList()) {
                 System.out.println(item);
@@ -63,13 +63,23 @@ public class Command {
     }
 
     public void fetchAllIncidents(UserEntity activeUser, String command) {
-        for (IncidentEntity item : new IncidentHelper().getIncidentList()){
-            System.out.println(item);
+        if (isAllowed(activeUser, command)) {
+            for (IncidentEntity item : new IncidentHelper().getIncidentList()) {
+                System.out.println(item);
+            }
+        } else {
+            System.err.println("This command is not allowed for you");
         }
     }
 
     public void fetchAllActiveIncidents(UserEntity activeUser, String command) {
-
+        if (isAllowed(activeUser, command)) {
+            for (IncidentEntity item: new IncidentHelper().getActiveIncidentList()){
+                System.out.println(item);
+            }
+        } else {
+            System.err.println("This command is not allowed for you");
+        }
     }
 
     public void fetchUserById(UserEntity activeUser, String command, String id) {

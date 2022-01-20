@@ -2,6 +2,7 @@ package com.itvdn.helper;
 
 import com.itvdn.HibernateUtil;
 import com.itvdn.entity.IncidentEntity;
+import com.itvdn.entity.UserEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -9,6 +10,7 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Selection;
 import java.util.List;
 
 public class IncidentHelper {
@@ -34,6 +36,29 @@ public class IncidentHelper {
         List<IncidentEntity> incidentEntityList = query.getResultList();
         session.close();
         return incidentEntityList;
+    }
+
+    public List<IncidentEntity> getActiveIncidentList(){
+        Session session = sessionFactory.openSession();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<IncidentEntity> cq = cb.createQuery(IncidentEntity.class);
+        Root<IncidentEntity> root = cq.from(IncidentEntity.class);
+
+        Selection[] selections = {
+                root.get("serviceName"),
+                root.get("isActive"),
+                root.get("problemDescription"),
+                root.get("user")
+        };
+
+        cq.select(cb.construct(IncidentEntity.class, selections))
+                .where(cb.equal(root.get("isActive"), 1));
+        Query query = session.createQuery(cq);
+        List<IncidentEntity> list = query.getResultList();
+
+        session.close();
+        return list;
     }
 
     public IncidentEntity getIncidentById(long id) {
