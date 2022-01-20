@@ -9,7 +9,6 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Selection;
 import java.util.List;
 
 public class IncidentHelper {
@@ -44,15 +43,7 @@ public class IncidentHelper {
         CriteriaQuery<IncidentEntity> cq = cb.createQuery(IncidentEntity.class);
         Root<IncidentEntity> root = cq.from(IncidentEntity.class);
 
-        Selection[] selections = {
-                root.get("serviceName"),
-                root.get("isActive"),
-                root.get("problemDescription"),
-                root.get("user")
-        };
-
-        cq.select(cb.construct(IncidentEntity.class, selections))
-                .where(cb.equal(root.get("isActive"), 1));
+        cq.select(root).where(cb.equal(root.get("isActive"), 1));
         Query query = session.createQuery(cq);
         List<IncidentEntity> list = query.getResultList();
 
@@ -67,12 +58,21 @@ public class IncidentHelper {
         return incident;
     }
 
-    public IncidentEntity addIncident(IncidentEntity incident){
+    public void addIncident(IncidentEntity incident){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.save(incident); // сгенерит ID и вставит в объект
         session.getTransaction().commit();
         session.close();
-        return incident;
+    }
+
+    public void closeIncident(long id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        IncidentEntity incident = session.get(IncidentEntity.class, id);
+        incident.setIsActive(false);
+        session.save(incident);
+        session.getTransaction().commit();
+        session.close();
     }
 }

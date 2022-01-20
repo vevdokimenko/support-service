@@ -8,6 +8,7 @@ import com.itvdn.helper.UserHelper;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class Command {
     private final List<Permission> permissions = Arrays.asList(
@@ -48,38 +49,28 @@ public class Command {
             new Permission("close_incident", "ADMIN")
     );
 
-    private boolean isAllowed(UserEntity user, String command) {
-        return permissions.contains(new Permission(command, user.getUserRole().getRoleName()));
+    public boolean isAllowed(UserEntity user, String command) {
+        boolean result = permissions.contains(new Permission(command, user.getUserRole().getRoleName()));
+        if (!result) System.err.println("This command is not allowed for you");
+        return result;
     }
 
-    public void fetchAllUsers(UserEntity activeUser, String command) {
-        if (isAllowed(activeUser, command)) {
-            UserHelper userHelper = new UserHelper();
-            for (UserEntity item : userHelper.getUserList()) {
-                System.out.println(item);
-            }
-        } else {
-            System.err.println("This command is not allowed for you");
+    public void fetchAllUsers() {
+        UserHelper userHelper = new UserHelper();
+        for (UserEntity item : userHelper.getUserList()) {
+            System.out.println(item);
         }
     }
 
-    public void fetchAllIncidents(UserEntity activeUser, String command) {
-        if (isAllowed(activeUser, command)) {
-            for (IncidentEntity item : new IncidentHelper().getIncidentList()) {
-                System.out.println(item);
-            }
-        } else {
-            System.err.println("This command is not allowed for you");
+    public void fetchAllIncidents() {
+        for (IncidentEntity item : new IncidentHelper().getIncidentList()) {
+            System.out.println(item);
         }
     }
 
-    public void fetchAllActiveIncidents(UserEntity activeUser, String command) {
-        if (isAllowed(activeUser, command)) {
-            for (IncidentEntity item: new IncidentHelper().getActiveIncidentList()){
-                System.out.println(item);
-            }
-        } else {
-            System.err.println("This command is not allowed for you");
+    public void fetchAllActiveIncidents() {
+        for (IncidentEntity item : new IncidentHelper().getActiveIncidentList()) {
+            System.out.println(item);
         }
     }
 
@@ -91,31 +82,58 @@ public class Command {
         }
     }
 
-    public void addUser(UserEntity activeUser, String input) {
+    public void addUser(UserEntity activeUser, String command) {
         //TODO
     }
 
-    public void updateUserId(UserEntity activeUser, String input, String id) {
+    public void updateUserId(UserEntity activeUser, String command, String id) {
         //TODO
     }
 
-    public void deleteUserId(UserEntity activeUser, String input, String id) {
+    public void deleteUserId(UserEntity activeUser, String command, String id) {
         //TODO
     }
 
-    public void subscribeServiceId(UserEntity activeUser, String input, String id) {
+    public void subscribeServiceId(UserEntity activeUser, String command, String id) {
         //TODO
     }
 
-    public void unsubscribeServiceId(UserEntity activeUser, String input, String id) {
+    public void unsubscribeServiceId(UserEntity activeUser, String command, String id) {
         //TODO
     }
 
-    public void createIncident(UserEntity activeUser, String input) {
-        //TODO
+    public void createIncident(UserEntity activeUser, String command) {
+        if (isAllowed(activeUser, command)) {
+            IncidentHelper helper = new IncidentHelper();
+
+            System.out.println("Type service name:");
+            String serviceName = new Scanner(System.in).nextLine();
+            System.out.println("Describe your problem with " + serviceName + ":");
+            String problemDescription = new Scanner(System.in).nextLine();
+
+            IncidentEntity incident = new IncidentEntity(serviceName, true, problemDescription, activeUser);
+            helper.addIncident(incident);
+
+            System.out.println("Your ticket was added: " + incident);
+        } else {
+            System.err.println("This command is not allowed for you");
+        }
     }
 
-    public void closeIncident(UserEntity activeUser, String input) {
-        //TODO
+    public void closeIncident(UserEntity activeUser, String command) {
+        if (isAllowed(activeUser, command)) {
+            IncidentHelper helper = new IncidentHelper();
+
+            System.out.println("Type id of incident you want to close:");
+            for (IncidentEntity item : helper.getActiveIncidentList()) {
+                System.out.println(item.getId() + " " + item.getServiceName() + " " + item.getProblemDescription());
+            }
+            long incidentId = Long.parseLong(new Scanner(System.in).nextLine());
+
+            helper.closeIncident(incidentId);
+            System.out.println("Incident " + incidentId + " closed.");
+        } else {
+            System.err.println("This command is not allowed for you");
+        }
     }
 }

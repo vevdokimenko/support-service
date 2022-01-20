@@ -17,7 +17,7 @@ public class IncidentEntity {
 
     @Basic
     @Column(name = "is_active")
-    private byte isActive;
+    private boolean isActive;
 
     @Basic
     @Column(name = "problem_description")
@@ -30,7 +30,7 @@ public class IncidentEntity {
     public IncidentEntity() {
     }
 
-    public IncidentEntity(String serviceName, byte isActive, String problemDescription, UserEntity user) {
+    public IncidentEntity(String serviceName, boolean isActive, String problemDescription, UserEntity user) {
         this.serviceName = serviceName;
         this.isActive = isActive;
         this.problemDescription = problemDescription;
@@ -53,11 +53,11 @@ public class IncidentEntity {
         this.serviceName = serviceName;
     }
 
-    public byte getIsActive() {
+    public boolean getIsActive() {
         return isActive;
     }
 
-    public void setIsActive(byte isActive) {
+    public void setIsActive(boolean isActive) {
         this.isActive = isActive;
     }
 
@@ -67,6 +67,14 @@ public class IncidentEntity {
 
     public void setProblemDescription(String problemDescription) {
         this.problemDescription = problemDescription;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     @Override
@@ -80,14 +88,6 @@ public class IncidentEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, serviceName, isActive, problemDescription);
-    }
-
-    public UserEntity getUser() {
-        return user;
-    }
-
-    public void setUser(UserEntity user) {
-        this.user = user;
     }
 
     @Override

@@ -51,14 +51,8 @@ public class UserHelper {
         CriteriaQuery<UserEntity> cq = cb.createQuery(UserEntity.class);
         Root<UserEntity> root = cq.from(UserEntity.class);
 
-        Selection[] selections = {
-                root.get("userName"),
-                root.get("password"),
-                root.get("userRole"),
-                root.get("profile")
-        };
-        cq.select(cb.construct(UserEntity.class, selections))
-                .where(cb.equal(root.get("userName"), userName));
+        cq.select(root).where(cb.equal(root.get("userName"), userName));
+
         Query query = session.createQuery(cq);
         List<UserEntity> list = query.getResultList();
 

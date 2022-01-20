@@ -23,14 +23,19 @@ public class Main {
                 case "exit":
                     break;
                 case "fetch_all_users":
-                    System.out.println(id);
-                    command.fetchAllUsers(auth.getActiveUser(), input);
+                    if (command.isAllowed(auth.getActiveUser(), input)){
+                        command.fetchAllUsers();
+                    }
                     break;
                 case "fetch_all_incidents":
-                    command.fetchAllIncidents(auth.getActiveUser(), input);
+                    if (command.isAllowed(auth.getActiveUser(), input)){
+                        command.fetchAllIncidents();
+                    }
                     break;
                 case "fetch_all_active_incidents":
-                    command.fetchAllActiveIncidents(auth.getActiveUser(), input);
+                    if (command.isAllowed(auth.getActiveUser(), input)){
+                        command.fetchAllActiveIncidents();
+                    }
                     break;
                 case "fetch_user_by_{}":
                     command.fetchUserById(auth.getActiveUser(), input, id);
