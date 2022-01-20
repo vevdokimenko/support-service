@@ -3,20 +3,20 @@ package com.itvdn.auth;
 import java.util.Objects;
 
 public class Permission {
-    private String query;
+    private String command;
     private String role;
 
-    public Permission(String query, String role) {
-        this.query = query;
+    public Permission(String command, String role) {
+        this.command = command;
         this.role = role;
     }
 
-    public String getQuery() {
-        return query;
+    public String getCommand() {
+        return command;
     }
 
-    public void setQuery(String query) {
-        this.query = query;
+    public void setCommand(String command) {
+        this.command = command;
     }
 
     public String getRole() {
@@ -30,7 +30,7 @@ public class Permission {
     @Override
     public String toString() {
         return "Permission{" +
-                "query='" + query + '\'' +
+                "command='" + command + '\'' +
                 ", role='" + role + '\'' +
                 '}';
     }
@@ -40,11 +40,11 @@ public class Permission {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Permission that = (Permission) o;
-        return Objects.equals(query, that.query) && Objects.equals(role, that.role);
+        return Objects.equals(command, that.command) && Objects.equals(role, that.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(query, role);
+        return Objects.hash(command, role);
     }
 }
