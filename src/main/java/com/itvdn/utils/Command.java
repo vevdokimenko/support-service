@@ -74,12 +74,9 @@ public class Command {
         }
     }
 
-    public void fetchUserById(UserEntity activeUser, String command, String id) {
-        if (isAllowed(activeUser, command)) {
-            System.out.println(new UserHelper().getUserById(Long.parseLong(id)));
-        } else {
-            System.err.println("This command is not allowed for you");
-        }
+    public void fetchUserById(String strId) {
+        long id = Long.parseLong(strId);
+        System.out.println(new UserHelper().getUserById(id));
     }
 
     public void addUser(UserEntity activeUser, String command) {
@@ -102,38 +99,30 @@ public class Command {
         //TODO
     }
 
-    public void createIncident(UserEntity activeUser, String command) {
-        if (isAllowed(activeUser, command)) {
-            IncidentHelper helper = new IncidentHelper();
+    public void createIncident(UserEntity activeUser) {
+        IncidentHelper helper = new IncidentHelper();
 
-            System.out.println("Type service name:");
-            String serviceName = new Scanner(System.in).nextLine();
-            System.out.println("Describe your problem with " + serviceName + ":");
-            String problemDescription = new Scanner(System.in).nextLine();
+        System.out.println("Type service name:");
+        String serviceName = new Scanner(System.in).nextLine();
+        System.out.println("Describe your problem with " + serviceName + ":");
+        String problemDescription = new Scanner(System.in).nextLine();
 
-            IncidentEntity incident = new IncidentEntity(serviceName, true, problemDescription, activeUser);
-            helper.addIncident(incident);
+        IncidentEntity incident = new IncidentEntity(serviceName, true, problemDescription, activeUser);
+        helper.addIncident(incident);
 
-            System.out.println("Your ticket was added: " + incident);
-        } else {
-            System.err.println("This command is not allowed for you");
-        }
+        System.out.println("Your ticket was added: " + incident);
     }
 
-    public void closeIncident(UserEntity activeUser, String command) {
-        if (isAllowed(activeUser, command)) {
-            IncidentHelper helper = new IncidentHelper();
+    public void closeIncident() {
+        IncidentHelper helper = new IncidentHelper();
 
-            System.out.println("Type id of incident you want to close:");
-            for (IncidentEntity item : helper.getActiveIncidentList()) {
-                System.out.println(item.getId() + " " + item.getServiceName() + " " + item.getProblemDescription());
-            }
-            long incidentId = Long.parseLong(new Scanner(System.in).nextLine());
-
-            helper.closeIncident(incidentId);
-            System.out.println("Incident " + incidentId + " closed.");
-        } else {
-            System.err.println("This command is not allowed for you");
+        System.out.println("Type id of incident you want to close:");
+        for (IncidentEntity item : helper.getActiveIncidentList()) {
+            System.out.println(item.getId() + " " + item.getServiceName() + " " + item.getProblemDescription());
         }
+        long incidentId = Long.parseLong(new Scanner(System.in).nextLine());
+
+        helper.closeIncident(incidentId);
+        System.out.println("Incident " + incidentId + " closed.");
     }
 }
