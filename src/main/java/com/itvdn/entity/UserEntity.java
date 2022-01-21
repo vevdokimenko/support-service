@@ -1,5 +1,6 @@
 package com.itvdn.entity;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -28,11 +29,11 @@ public class UserEntity {
     @JoinColumn(name = "user_role_id")
     private UserRoleEntity userRole;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "profile_id")
     private ProfileEntity profile;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
     @Fetch(FetchMode.SELECT)
     List<IncidentEntity> incidentEntityList = new ArrayList<>();
 
