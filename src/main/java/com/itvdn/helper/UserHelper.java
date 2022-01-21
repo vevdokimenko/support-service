@@ -61,9 +61,20 @@ public class UserHelper {
     public UserEntity addUser(UserEntity user) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.save(user); // сгенерит ID и вставит в объект
+        session.save(user);
         session.getTransaction().commit();
         session.close();
         return user;
+    }
+
+    public void deleteUserById(String id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        UserEntity user = session.get(UserEntity.class, Long.parseLong(id));
+        session.delete(user);
+
+        session.getTransaction().commit();
+        session.close();
     }
 }
