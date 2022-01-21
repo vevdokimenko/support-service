@@ -30,6 +30,14 @@ public class IncidentEntity {
     public IncidentEntity() {
     }
 
+    public IncidentEntity(long id, String serviceName, boolean isActive, String problemDescription, UserEntity user) {
+        this.id = id;
+        this.serviceName = serviceName;
+        this.isActive = isActive;
+        this.problemDescription = problemDescription;
+        this.user = user;
+    }
+
     public IncidentEntity(String serviceName, boolean isActive, String problemDescription, UserEntity user) {
         this.serviceName = serviceName;
         this.isActive = isActive;
