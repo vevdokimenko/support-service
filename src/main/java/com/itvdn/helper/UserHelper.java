@@ -19,16 +19,12 @@ public class UserHelper {
     }
 
     public List<UserEntity> getUserList() {
-        // открыть сессию - для манипуляции с персист. объектами
         Session session = sessionFactory.openSession();
 
-        // этап подготовки запроса
-
-        // объект-конструктор запросов для Criteria API
         CriteriaBuilder cb = session.getCriteriaBuilder();// не использовать session.createCriteria, т.к. deprecated
         CriteriaQuery<UserEntity> cq = cb.createQuery(UserEntity.class);
+        Root<UserEntity> root = cq.from(UserEntity.class);
 
-        //этап выполнения запроса
         Query query = session.createQuery(cq);
         List<UserEntity> userEntityList = query.getResultList();
         session.close();

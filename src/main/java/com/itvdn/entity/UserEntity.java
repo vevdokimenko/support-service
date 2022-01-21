@@ -126,12 +126,12 @@ public class UserEntity {
 
     @Override
     public String toString() {
-        return "\nUserEntity{" +
+        return "User{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
-                ", userRole=" + userRole +
-                ", profile=" + profile +
+                ", userRole=" + userRole.getRoleName() +
+                ", profile=" + profile.getId() +
                 '}';
     }
 }

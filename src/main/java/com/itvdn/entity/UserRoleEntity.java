@@ -94,7 +94,7 @@ public class UserRoleEntity {
 
     @Override
     public String toString() {
-        return "\nUserRoleEntity{" +
+        return "Role{" +
                 "id=" + id +
                 ", roleName='" + roleName + '\'' +
                 ", roleDescription='" + roleDescription + '\'' +

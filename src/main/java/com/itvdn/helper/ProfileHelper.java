@@ -18,16 +18,11 @@ public class ProfileHelper {
     }
 
     public List<ProfileEntity> getProfileList(){
-        // открыть сессию - для манипуляции с персист. объектами
         Session session = sessionFactory.openSession();
 
-        // этап подготовки запроса
-
-        // объект-конструктор запросов для Criteria API
-        CriteriaBuilder cb = session.getCriteriaBuilder();// не использовать session.createCriteria, т.к. deprecated
+        CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<ProfileEntity> cq = cb.createQuery(ProfileEntity.class);
 
-        //этап выполнения запроса
         Query query = session.createQuery(cq);
         List<ProfileEntity> profileEntityList = query.getResultList();
         session.close();
@@ -36,17 +31,17 @@ public class ProfileHelper {
 
     public ProfileEntity getProfileById(long id) {
         Session session = sessionFactory.openSession();
-        ProfileEntity profile = session.get(ProfileEntity.class, id); // получение объекта по id
+        ProfileEntity profile = session.get(ProfileEntity.class, id);
         session.close();
         return profile;
     }
 
-    public ProfileEntity addProfile(ProfileEntity profile){
+    public long addProfile(ProfileEntity profile){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.save(profile); // сгенерит ID и вставит в объект
+        long id = (long) session.save(profile);
         session.getTransaction().commit();
         session.close();
-        return profile;
+        return id;
     }
 }

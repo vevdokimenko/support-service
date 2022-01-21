@@ -23,6 +23,7 @@ public class UserRoleHelper {
 
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<UserRoleEntity> cq = cb.createQuery(UserRoleEntity.class);
+        Root<UserRoleEntity> root = cq.from(UserRoleEntity.class);
 
         Query query = session.createQuery(cq);
         List<UserRoleEntity> userRoleEntityList = query.getResultList();

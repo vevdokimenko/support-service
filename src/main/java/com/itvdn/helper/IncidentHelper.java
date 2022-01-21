@@ -19,16 +19,12 @@ public class IncidentHelper {
     }
 
     public List<IncidentEntity> getIncidentList() {
-        // открыть сессию - для манипуляции с персист. объектами
         Session session = sessionFactory.openSession();
 
-        // этап подготовки запроса
-
-        // объект-конструктор запросов для Criteria API
-        CriteriaBuilder cb = session.getCriteriaBuilder();// не использовать session.createCriteria, т.к. deprecated
+        CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<IncidentEntity> cq = cb.createQuery(IncidentEntity.class);
+        Root<IncidentEntity> root = cq.from(IncidentEntity.class);
 
-        //этап выполнения запроса
         Query query = session.createQuery(cq);
         List<IncidentEntity> incidentEntityList = query.getResultList();
         session.close();
@@ -52,7 +48,7 @@ public class IncidentHelper {
 
     public IncidentEntity getIncidentById(long id) {
         Session session = sessionFactory.openSession();
-        IncidentEntity incident = session.get(IncidentEntity.class, id); // получение объекта по id
+        IncidentEntity incident = session.get(IncidentEntity.class, id);
         session.close();
         return incident;
     }
@@ -60,7 +56,7 @@ public class IncidentHelper {
     public void addIncident(IncidentEntity incident) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.save(incident); // сгенерит ID и вставит в объект
+        session.save(incident);
         session.getTransaction().commit();
         session.close();
     }

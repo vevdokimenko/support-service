@@ -92,7 +92,7 @@ public class IncidentEntity {
 
     @Override
     public String toString() {
-        return "IncidentEntity{" +
+        return "Incident{" +
                 "id=" + id +
                 ", serviceName='" + serviceName + '\'' +
                 ", isActive=" + isActive +
