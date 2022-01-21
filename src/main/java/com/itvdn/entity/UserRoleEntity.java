@@ -24,11 +24,11 @@ public class UserRoleEntity {
     @Column(name = "role_description")
     private String roleDescription;
 
-    @OneToMany(mappedBy = "userRole", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "userRole", fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)
     private List<UserEntity> users = new ArrayList<>();
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
     private List<PermissionEntity> permissionEntityList = new ArrayList<>();
 
     public UserRoleEntity() {
