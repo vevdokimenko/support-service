@@ -1,6 +1,7 @@
 package com.itvdn.auth;
 
 import com.itvdn.entity.PermissionEntity;
+import com.itvdn.entity.ServiceEntity;
 import com.itvdn.entity.UserEntity;
 import com.itvdn.helper.PermissionHelper;
 import com.itvdn.helper.UserHelper;
@@ -10,6 +11,7 @@ import java.util.Scanner;
 
 public class Auth {
     private UserEntity activeUser;
+
     private final List<PermissionEntity> permissions = new PermissionHelper().getPermissionsList();
 
     public Auth() {
@@ -32,8 +34,13 @@ public class Auth {
                     System.out.println(
                             "Welcome, " +
                                     activeUser.getUserName() + " [" +
-                                    activeUser.getUserRole().getRoleName() + "]\n"
+                                    activeUser.getUserRole().getRoleName() + "]"
                     );
+                    System.out.print("Your services:");
+                    for (ServiceEntity item : activeUser.getServiceEntityList()) {
+                        System.out.print(" [" + item.getId() + " " + item.getServiceName() + "]");
+                    }
+                    System.out.println("\n");
                     isAccessGranted = true;
                 }
             }
