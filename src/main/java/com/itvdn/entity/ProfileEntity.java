@@ -33,7 +33,7 @@ public class ProfileEntity {
     @Column(name = "postal_code")
     private String postalCode;
 
-    @OneToMany(mappedBy = "profile")
+    @OneToMany(mappedBy = "profile", cascade = {CascadeType.ALL})
     private List<UserEntity> users;
 
     public ProfileEntity() {
