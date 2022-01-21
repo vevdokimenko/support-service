@@ -32,7 +32,7 @@ public class ServiceEntity {
     @Column(name = "customer_id")
     private int customerId;
 
-    @ManyToMany(mappedBy = "serviceEntities", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @ManyToMany(mappedBy = "serviceEntities", fetch = FetchType.EAGER)
     private List<UserEntity> userEntities;
 
     public ServiceEntity() {
