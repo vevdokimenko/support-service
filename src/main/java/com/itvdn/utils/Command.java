@@ -65,7 +65,11 @@ public class Command {
     }
 
     public void deleteUserId(String id) {
-        //TODO
+//        try {
+            new UserHelper().deleteUserById(id);
+//        } catch (Exception e) {
+//            System.err.println("No such user.");
+//        }
     }
 
     public void subscribeServiceId(UserEntity activeUser, String id) {
