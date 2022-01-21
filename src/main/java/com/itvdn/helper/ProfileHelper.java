@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class ProfileHelper {
@@ -22,6 +23,7 @@ public class ProfileHelper {
 
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<ProfileEntity> cq = cb.createQuery(ProfileEntity.class);
+        Root<ProfileEntity> root = cq.from(ProfileEntity.class);
 
         Query query = session.createQuery(cq);
         List<ProfileEntity> profileEntityList = query.getResultList();
