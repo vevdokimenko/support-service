@@ -19,16 +19,11 @@ public class UserRoleHelper {
     }
 
     public List<UserRoleEntity> getUserRoleList(){
-        // открыть сессию - для манипуляции с персист. объектами
         Session session = sessionFactory.openSession();
 
-        // этап подготовки запроса
-
-        // объект-конструктор запросов для Criteria API
-        CriteriaBuilder cb = session.getCriteriaBuilder();// не использовать session.createCriteria, т.к. deprecated
+        CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<UserRoleEntity> cq = cb.createQuery(UserRoleEntity.class);
 
-        //этап выполнения запроса
         Query query = session.createQuery(cq);
         List<UserRoleEntity> userRoleEntityList = query.getResultList();
         session.close();
@@ -37,7 +32,7 @@ public class UserRoleHelper {
 
     public UserRoleEntity getUserRoleById(long id) {
         Session session = sessionFactory.openSession();
-        UserRoleEntity userRole = session.get(UserRoleEntity.class, id); // получение объекта по id
+        UserRoleEntity userRole = session.get(UserRoleEntity.class, id);
         session.close();
         return userRole;
     }
@@ -45,7 +40,7 @@ public class UserRoleHelper {
     public UserRoleEntity addUserRole(UserRoleEntity userRole){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.save(userRole); // сгенерит ID и вставит в объект
+        session.save(userRole);
         session.getTransaction().commit();
         session.close();
         return userRole;

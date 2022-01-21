@@ -12,8 +12,8 @@ CREATE TABLE IF NOT EXISTS user_role
 
 -- FILLING user_role --
 INSERT INTO user_role(role_name, role_description)
-VALUES ('USER', 'User'),
-       ('ADMIN', 'Admin'),
+VALUES (1, 1),
+       (2, 2),
        ('SUPER_ADMIN', 'Super admin');
 
 -- CREATING profile --
@@ -51,10 +51,10 @@ CREATE TABLE IF NOT EXISTS user
 -- FILLING user --
 INSERT INTO user(user_name, password, user_role_id, profile_id)
 VALUES ('ivanov.i', 'superadmin', 3, 1),
-       ('nesterenko.s', 'admin', 2, 2),
-       ('abramov.v', 'user', 1, 3),
-       ('nikolaev.a', 'user', 1, 4),
-       ('shevchenko.a', 'user', 1, 5);
+       ('nesterenko.s', 2, 2, 2),
+       ('abramov.v', 1, 1, 3),
+       ('nikolaev.a', 1, 1, 4),
+       ('shevchenko.a', 1, 1, 5);
 
 -- CREATING service --
 CREATE TABLE IF NOT EXISTS service
@@ -136,33 +136,34 @@ CREATE TABLE IF NOT EXISTS permission
 (
     id      INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
     command VARCHAR(30) NOT NULL,
-    role    VARCHAR(30) NOT NULL
+    role_id INT         NOT NULL,
+    FOREIGN KEY (role_id) REFERENCES user_role (id)
 );
 
 -- FILLING permissions --
-INSERT INTO permission(command, role)
-VALUES ('fetch_all_users', 'SUPER_ADMIN'),
-       ('fetch_all_users', 'ADMIN'),
-       ('fetch_all_incidents', 'SUPER_ADMIN'),
-       ('fetch_all_incidents', 'ADMIN'),
-       ('fetch_all_active_incidents', 'SUPER_ADMIN'),
-       ('fetch_all_active_incidents', 'ADMIN'),
-       ('fetch_user_by_{}', 'SUPER_ADMIN'),
-       ('fetch_user_by_{}', 'ADMIN'),
-       ('add_user', 'SUPER_ADMIN'),
-       ('add_user', 'ADMIN'),
-       ('update_user_{}', 'SUPER_ADMIN'),
-       ('update_user_{}', 'ADMIN'),
-       ('delete_user_{}', 'SUPER_ADMIN'),
-       ('delete_user_{}', 'ADMIN'),
-       ('subscribe_service_{}', 'SUPER_ADMIN'),
-       ('subscribe_service_{}', 'ADMIN'),
-       ('subscribe_service_{}', 'USER'),
-       ('unsubscribe_service_{}', 'SUPER_ADMIN'),
-       ('unsubscribe_service_{}', 'ADMIN'),
-       ('unsubscribe_service_{}', 'USER'),
-       ('create_incident', 'SUPER_ADMIN'),
-       ('create_incident', 'ADMIN'),
-       ('create_incident', 'USER'),
-       ('close_incident', 'SUPER_ADMIN'),
-       ('close_incident', 'ADMIN')
+INSERT INTO permission(command, role_id)
+VALUES ('fetch_all_users', 3),
+       ('fetch_all_users', 2),
+       ('fetch_all_incidents', 3),
+       ('fetch_all_incidents', 2),
+       ('fetch_all_active_incidents', 3),
+       ('fetch_all_active_incidents', 2),
+       ('fetch_user_by_{}', 3),
+       ('fetch_user_by_{}', 2),
+       ('add_user', 3),
+       ('add_user', 2),
+       ('update_user_{}', 3),
+       ('update_user_{}', 2),
+       ('delete_user_{}', 3),
+       ('delete_user_{}', 2),
+       ('subscribe_service_{}', 3),
+       ('subscribe_service_{}', 2),
+       ('subscribe_service_{}', 1),
+       ('unsubscribe_service_{}', 3),
+       ('unsubscribe_service_{}', 2),
+       ('unsubscribe_service_{}', 1),
+       ('create_incident', 3),
+       ('create_incident', 2),
+       ('create_incident', 1),
+       ('close_incident', 3),
+       ('close_incident', 2)

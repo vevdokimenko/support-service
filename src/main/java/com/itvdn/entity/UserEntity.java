@@ -32,7 +32,8 @@ public class UserEntity {
     @JoinColumn(name = "profile_id")
     private ProfileEntity profile;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user")
+    @Fetch(FetchMode.SELECT)
     List<IncidentEntity> incidentEntityList = new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)

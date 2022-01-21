@@ -1,5 +1,8 @@
 package com.itvdn.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +25,11 @@ public class UserRoleEntity {
     private String roleDescription;
 
     @OneToMany(mappedBy = "userRole", fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     private List<UserEntity> users = new ArrayList<>();
+
+    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
+    private List<PermissionEntity> permissionEntityList = new ArrayList<>();
 
     public UserRoleEntity() {
     }
@@ -62,6 +69,14 @@ public class UserRoleEntity {
 
     public void setUsers(List<UserEntity> users) {
         this.users = users;
+    }
+
+    public List<PermissionEntity> getPermissionEntityList() {
+        return permissionEntityList;
+    }
+
+    public void setPermissionEntityList(List<PermissionEntity> permissionEntityList) {
+        this.permissionEntityList = permissionEntityList;
     }
 
     @Override

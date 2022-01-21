@@ -1,5 +1,8 @@
 package com.itvdn.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -10,17 +13,20 @@ public class PermissionEntity {
     @Id
     @Column(name = "id")
     private int id;
+
     @Basic
     @Column(name = "command")
     private String command;
-    @Basic
-    @Column(name = "role")
-    private String role;
+
+    @ManyToOne
+    @Fetch(FetchMode.SELECT)
+    @JoinColumn(name = "role_id")
+    private UserRoleEntity role;
 
     public PermissionEntity() {
     }
 
-    public PermissionEntity(String command, String role) {
+    public PermissionEntity(String command, UserRoleEntity role) {
         this.command = command;
         this.role = role;
     }
@@ -41,11 +47,11 @@ public class PermissionEntity {
         this.command = command;
     }
 
-    public String getRole() {
+    public UserRoleEntity getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(UserRoleEntity role) {
         this.role = role;
     }
 
@@ -67,7 +73,7 @@ public class PermissionEntity {
         return "PermissionEntity{" +
                 "id=" + id +
                 ", command='" + command + '\'' +
-                ", role='" + role + '\'' +
+                ", role='" + role.getRoleName() + '\'' +
                 '}';
     }
 }
