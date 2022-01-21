@@ -1,13 +1,7 @@
 package com.itvdn.utils;
 
-import com.itvdn.entity.IncidentEntity;
-import com.itvdn.entity.ServiceEntity;
-import com.itvdn.entity.UserEntity;
-import com.itvdn.entity.UserServiceEntity;
-import com.itvdn.helper.IncidentHelper;
-import com.itvdn.helper.ServiceHelper;
-import com.itvdn.helper.UserHelper;
-import com.itvdn.helper.UserServiceHelper;
+import com.itvdn.entity.*;
+import com.itvdn.helper.*;
 
 import java.util.Scanner;
 
@@ -30,7 +24,40 @@ public class Command {
     }
 
     public void addUser() {
-        //TODO
+        Scanner scanner = new Scanner(System.in);
+        ProfileEntity profile = new ProfileEntity();
+        UserEntity user = new UserEntity();
+        UserRoleHelper userRoleHelper = new UserRoleHelper();
+        ProfileHelper profileHelper = new ProfileHelper();
+
+        System.out.println("Enter first name:");
+        profile.setFirstName(scanner.nextLine());
+
+        System.out.println("Enter last name:");
+        profile.setLastName(scanner.nextLine());
+
+        System.out.println("Enter email:");
+        profile.setEmail(scanner.nextLine());
+
+        System.out.println("Enter phone number:");
+        profile.setPhoneNumber(scanner.nextLine());
+
+        System.out.println("Enter postal code:");
+        profile.setPostalCode(scanner.nextLine());
+
+        System.out.println("Enter user_name:");
+        user.setUserName(scanner.nextLine());
+
+        System.out.println("Enter password:");
+        user.setPassword(scanner.nextLine());
+
+        System.out.println("Enter role id " + userRoleHelper.getUserRoleList());
+        long roleId = scanner.nextLong();
+        user.setUserRole(userRoleHelper.getUserRoleById(roleId));
+
+        long profileId = profileHelper.addProfile(profile);
+        user.setProfile(profileHelper.getProfileById(profileId));
+        new UserHelper().addUser(user);
     }
 
     public void updateUserId(String id) {
