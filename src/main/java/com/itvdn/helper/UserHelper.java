@@ -1,5 +1,6 @@
 package com.itvdn.helper;
 
+import com.itvdn.entity.IncidentEntity;
 import com.itvdn.utils.HibernateUtil;
 import com.itvdn.entity.UserEntity;
 import org.hibernate.Session;
@@ -7,6 +8,7 @@ import org.hibernate.SessionFactory;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
@@ -71,8 +73,25 @@ public class UserHelper {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        Query query;
+        int deletedValues;
         UserEntity user = session.get(UserEntity.class, Long.parseLong(id));
-        session.delete(user);
+
+        CriteriaDelete<IncidentEntity> cdIncident = cb.createCriteriaDelete(IncidentEntity.class);
+        Root<IncidentEntity> incidentEntityRoot = cdIncident.from(IncidentEntity.class);
+        cdIncident.where(cb.equal(incidentEntityRoot.get("user"), user));
+        query = session.createQuery(cdIncident);
+        deletedValues = query.executeUpdate();
+        System.out.println("Deleted incidents: " + deletedValues);
+//        session.getTransaction().commit();
+
+        CriteriaDelete<UserEntity> cd = cb.createCriteriaDelete(UserEntity.class);
+        Root<UserEntity> userEntityRoot = cd.from(UserEntity.class);
+        cd.where(cb.equal(userEntityRoot, user));
+        query = session.createQuery(cd);
+        deletedValues = query.executeUpdate();
+        System.out.println("Deleted users: " + deletedValues);
 
         session.getTransaction().commit();
         session.close();
