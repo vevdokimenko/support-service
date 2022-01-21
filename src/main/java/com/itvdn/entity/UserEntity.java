@@ -1,6 +1,5 @@
 package com.itvdn.entity;
 
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -33,11 +32,11 @@ public class UserEntity {
     @JoinColumn(name = "profile_id")
     private ProfileEntity profile;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "user")
     @Fetch(FetchMode.SELECT)
     List<IncidentEntity> incidentEntityList = new ArrayList<>();
 
-    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)
     @JoinTable(
             name = "user_service",
@@ -47,6 +46,14 @@ public class UserEntity {
     List<ServiceEntity> serviceEntities = new ArrayList<>();
 
     public UserEntity() {
+    }
+
+    public UserEntity(long id, String userName, String password, UserRoleEntity userRole, ProfileEntity profile) {
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.userRole = userRole;
+        this.profile = profile;
     }
 
     public UserEntity(String userName, String password, UserRoleEntity userRole, ProfileEntity profile) {
