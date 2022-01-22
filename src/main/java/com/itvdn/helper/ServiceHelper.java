@@ -18,16 +18,11 @@ public class ServiceHelper {
     }
 
     public List<ServiceEntity> getServiceList(){
-        // открыть сессию - для манипуляции с персист. объектами
         Session session = sessionFactory.openSession();
 
-        // этап подготовки запроса
-
-        // объект-конструктор запросов для Criteria API
-        CriteriaBuilder cb = session.getCriteriaBuilder();// не использовать session.createCriteria, т.к. deprecated
+        CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<ServiceEntity> cq = cb.createQuery(ServiceEntity.class);
 
-        //этап выполнения запроса
         Query query = session.createQuery(cq);
         List<ServiceEntity> serviceEntityList = query.getResultList();
         session.close();
@@ -36,7 +31,7 @@ public class ServiceHelper {
 
     public ServiceEntity getServiceById(long id) {
         Session session = sessionFactory.openSession();
-        ServiceEntity service = session.get(ServiceEntity.class, id); // получение объекта по id
+        ServiceEntity service = session.get(ServiceEntity.class, id);
         session.close();
         return service;
     }
@@ -44,7 +39,7 @@ public class ServiceHelper {
     public ServiceEntity addService(ServiceEntity service){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.save(service); // сгенерит ID и вставит в объект
+        session.save(service);
         session.getTransaction().commit();
         session.close();
         return service;

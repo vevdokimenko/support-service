@@ -58,13 +58,12 @@ public class UserHelper {
         return (userName.equals(user.getUserName())) ? user : null;
     }
 
-    public UserEntity addUser(UserEntity user) {
+    public void addUser(UserEntity user) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.save(user);
         session.getTransaction().commit();
         session.close();
-        return user;
     }
 
     public void deleteUserById(String id) {
@@ -82,7 +81,6 @@ public class UserHelper {
         query = session.createQuery(cdIncident);
         deletedValues = query.executeUpdate();
         System.out.println("Deleted incidents: " + deletedValues);
-//        session.getTransaction().commit();
 
         CriteriaDelete<UserEntity> cd = cb.createCriteriaDelete(UserEntity.class);
         Root<UserEntity> userEntityRoot = cd.from(UserEntity.class);
