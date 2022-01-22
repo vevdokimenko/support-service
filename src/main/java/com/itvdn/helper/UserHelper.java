@@ -71,22 +71,13 @@ public class UserHelper {
         session.beginTransaction();
 
         CriteriaBuilder cb = session.getCriteriaBuilder();
-        Query query;
-        int deletedValues;
         UserEntity user = session.get(UserEntity.class, Long.parseLong(id));
-
-        CriteriaDelete<IncidentEntity> cdIncident = cb.createCriteriaDelete(IncidentEntity.class);
-        Root<IncidentEntity> incidentEntityRoot = cdIncident.from(IncidentEntity.class);
-        cdIncident.where(cb.equal(incidentEntityRoot.get("user"), user));
-        query = session.createQuery(cdIncident);
-        deletedValues = query.executeUpdate();
-        System.out.println("Deleted incidents: " + deletedValues);
 
         CriteriaDelete<UserEntity> cd = cb.createCriteriaDelete(UserEntity.class);
         Root<UserEntity> userEntityRoot = cd.from(UserEntity.class);
         cd.where(cb.equal(userEntityRoot, user));
-        query = session.createQuery(cd);
-        deletedValues = query.executeUpdate();
+        Query query = session.createQuery(cd);
+        int deletedValues = query.executeUpdate();
         System.out.println("Deleted users: " + deletedValues);
 
         session.getTransaction().commit();
