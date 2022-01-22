@@ -51,10 +51,10 @@ CREATE TABLE IF NOT EXISTS user
 -- FILLING user --
 INSERT INTO user(user_name, password, user_role_id, profile_id)
 VALUES ('ivanov.i', 'superadmin', 3, 1),
-       ('nesterenko.s', 2, 2, 2),
-       ('abramov.v', 1, 1, 3),
-       ('nikolaev.a', 1, 1, 4),
-       ('shevchenko.a', 1, 1, 5);
+       ('nesterenko.s', 'admin', 2, 2),
+       ('abramov.v', 'user', 1, 3),
+       ('nikolaev.a', 'user', 1, 4),
+       ('shevchenko.a', 'user', 1, 5);
 
 -- CREATING service --
 CREATE TABLE IF NOT EXISTS service
