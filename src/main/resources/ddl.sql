@@ -12,8 +12,8 @@ CREATE TABLE IF NOT EXISTS user_role
 
 -- FILLING user_role --
 INSERT INTO user_role(role_name, role_description)
-VALUES (1, 1),
-       (2, 2),
+VALUES ('USER', 'User'),
+       ('ADMIN', 'Admin'),
        ('SUPER_ADMIN', 'Super admin');
 
 -- CREATING profile --
