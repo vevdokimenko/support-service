@@ -47,14 +47,16 @@ public class UserHelper {
         cq.select(root).where(cb.equal(root.get("userName"), userName));
 
         Query query = session.createQuery(cq);
-        List<UserEntity> list = query.getResultList();
+        UserEntity user;
+
+        try {
+            user = (UserEntity) query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
 
         session.close();
-
-        if (list.size() == 0) return null;
-
-        UserEntity user = list.get(0);
-        return (userName.equals(user.getUserName())) ? user : null;
+        return user;
     }
 
     public void addUser(UserEntity user) {
