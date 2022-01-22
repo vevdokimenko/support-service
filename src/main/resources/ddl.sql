@@ -42,10 +42,12 @@ CREATE TABLE IF NOT EXISTS user
     user_name    VARCHAR(30) NOT NULL,
     password     VARCHAR(30) NOT NULL,
     user_role_id INT         NOT NULL,
-    profile_id   INT         NOT NULL UNIQUE,
+    profile_id   INT         NOT NULL,
 
-    FOREIGN KEY (user_role_id) REFERENCES user_role (id),
+    FOREIGN KEY (user_role_id) REFERENCES user_role (id)
+        ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (profile_id) REFERENCES profile (id)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- FILLING user --
@@ -81,8 +83,10 @@ CREATE TABLE IF NOT EXISTS user_service
     service_id INT NOT NULL,
     user_id    INT NOT NULL,
 
-    FOREIGN KEY (service_id) REFERENCES service (id),
-    FOREIGN KEY (user_id) REFERENCES user (id),
+    FOREIGN KEY (service_id) REFERENCES service (id)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES user (id)
+        ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (service_id, user_id)
 );
 
@@ -121,6 +125,7 @@ CREATE TABLE IF NOT EXISTS incident
     problem_description VARCHAR(255) NOT NULL,
     user_id             INT          NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user (id)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- FILLING incident --
@@ -138,6 +143,7 @@ CREATE TABLE IF NOT EXISTS permission
     command VARCHAR(30) NOT NULL,
     role_id INT         NOT NULL,
     FOREIGN KEY (role_id) REFERENCES user_role (id)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- FILLING permissions --
