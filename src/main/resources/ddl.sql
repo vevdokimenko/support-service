@@ -39,7 +39,7 @@ VALUES ('Иван', 'Иванов', 'ivanov.i@email.com', '+380661234567', '0123
 CREATE TABLE IF NOT EXISTS user
 (
     id           INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    user_name    VARCHAR(30) NOT NULL,
+    user_name    VARCHAR(30) NOT NULL UNIQUE,
     password     VARCHAR(30) NOT NULL,
     user_role_id INT         NOT NULL,
     profile_id   INT         NOT NULL,
