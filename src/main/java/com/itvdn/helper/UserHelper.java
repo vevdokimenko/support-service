@@ -20,7 +20,7 @@ public class UserHelper {
     public List<UserEntity> getUserList() {
         Session session = sessionFactory.openSession();
 
-        CriteriaBuilder cb = session.getCriteriaBuilder();// не использовать session.createCriteria, т.к. deprecated
+        CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<UserEntity> cq = cb.createQuery(UserEntity.class);
         Root<UserEntity> root = cq.from(UserEntity.class);
 
@@ -32,7 +32,7 @@ public class UserHelper {
 
     public UserEntity getUserById(long id) {
         Session session = sessionFactory.openSession();
-        UserEntity user = session.get(UserEntity.class, id); // получение объекта по id
+        UserEntity user = session.get(UserEntity.class, id);
         session.close();
         return user;
     }
