@@ -1,16 +1,14 @@
 package com.itvdn.helper;
 
 import com.itvdn.entity.IncidentEntity;
+import com.itvdn.entity.ProfileEntity;
 import com.itvdn.utils.HibernateUtil;
 import com.itvdn.entity.UserEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.List;
 
 public class UserHelper {
@@ -92,6 +90,28 @@ public class UserHelper {
         query = session.createQuery(cd);
         deletedValues = query.executeUpdate();
         System.out.println("Deleted users: " + deletedValues);
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void updateUser(UserEntity user) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        UserEntity userDB = session.get(UserEntity.class, user.getId());
+        ProfileEntity profileDB = userDB.getProfile();
+
+        profileDB.setFirstName(user.getProfile().getFirstName());
+        profileDB.setLastName(user.getProfile().getLastName());
+        profileDB.setEmail(user.getProfile().getEmail());
+        profileDB.setPhoneNumber(user.getProfile().getPhoneNumber());
+        profileDB.setPostalCode(user.getProfile().getPostalCode());
+        userDB.setUserName(user.getUserName());
+        userDB.setPassword(user.getPassword());
+        userDB.setUserRole(user.getUserRole());
+
+        session.save(profileDB);
+        session.save(userDB);
 
         session.getTransaction().commit();
         session.close();

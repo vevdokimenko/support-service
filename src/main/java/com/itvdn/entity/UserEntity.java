@@ -28,7 +28,7 @@ public class UserEntity {
     @JoinColumn(name = "user_role_id")
     private UserRoleEntity userRole;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "profile_id")
     private ProfileEntity profile;
 

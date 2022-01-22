@@ -3,6 +3,7 @@ package com.itvdn.utils;
 import com.itvdn.entity.*;
 import com.itvdn.helper.*;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Command {
@@ -61,15 +62,77 @@ public class Command {
     }
 
     public void updateUserId(String id) {
-        //TODO
+        UserEntity user = new UserHelper().getUserById(Long.parseLong(id));
+        Scanner scanner = new Scanner(System.in);
+        boolean exitMenu = false;
+
+        while (!exitMenu){
+            System.out.println("Choose you want to edit (enter number):");
+            System.out.println(new StringBuilder()
+                    .append("1. First name\n")
+                    .append("2. Last name\n")
+                    .append("3. Email\n")
+                    .append("4. Phone number\n")
+                    .append("5. Postal code\n")
+                    .append("6. user_name\n")
+                    .append("7. password\n")
+                    .append("8. role_id\n")
+                    .append("9. Save changes\n")
+                    .append("0. Cancel\n")
+            );
+            switch (scanner.nextLine()){
+                case "1":
+                    System.out.println("Enter first name:");
+                    user.getProfile().setFirstName(scanner.nextLine());
+                    break;
+                case "2":
+                    System.out.println("Enter last name:");
+                    user.getProfile().setLastName(scanner.nextLine());
+                    break;
+                case "3":
+                    System.out.println("Enter email:");
+                    user.getProfile().setEmail(scanner.nextLine());
+                    break;
+                case "4":
+                    System.out.println("Enter phone number:");
+                    user.getProfile().setPhoneNumber(scanner.nextLine());
+                    break;
+                case "5":
+                    System.out.println("Enter postal code:");
+                    user.getProfile().setPostalCode(scanner.nextLine());
+                    break;
+                case "6":
+                    System.out.println("Enter user_name:");
+                    user.setUserName(scanner.nextLine());
+                    break;
+                case "7":
+                    System.out.println("Enter password:");
+                    user.setPassword(scanner.nextLine());
+                    break;
+                case "8":
+                    UserRoleHelper helper = new UserRoleHelper();
+                    for (UserRoleEntity item : helper.getUserRoleList()){
+                        System.out.println("Enter role id: " + item.getId() + "-" + item.getRoleName());
+                    }
+                    user.setUserRole(helper.getUserRoleById(scanner.nextLong()));
+                    break;
+                case "9":
+                    new UserHelper().updateUser(user);
+                    break;
+                case "0":
+                    exitMenu = true;
+                    System.out.println("Cancelling");
+                    break;
+                default:
+                    exitMenu = true;
+                    break;
+            }
+        }
+
     }
 
     public void deleteUserId(String id) {
-//        try {
-            new UserHelper().deleteUserById(id);
-//        } catch (Exception e) {
-//            System.err.println("No such user.");
-//        }
+        new UserHelper().deleteUserById(id);
     }
 
     public void subscribeServiceId(UserEntity activeUser, String id) {
