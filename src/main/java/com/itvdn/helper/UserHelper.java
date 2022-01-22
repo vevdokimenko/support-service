@@ -1,6 +1,5 @@
 package com.itvdn.helper;
 
-import com.itvdn.entity.IncidentEntity;
 import com.itvdn.entity.ProfileEntity;
 import com.itvdn.utils.HibernateUtil;
 import com.itvdn.entity.UserEntity;
