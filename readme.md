@@ -28,11 +28,18 @@
    searches the database, if there is a match, then we carry out user authorization
 6. Receiving requests can be organized through the console, requests for which the application must respond:
 
-| Request                                        | Description                                                                                 | Access                 |
-|------------------------------------------------|---------------------------------------------------------------------------------------------|------------------------|
-| fetch_all_users                                | display in the console a list of all users with all dependencies                            | «ADMIN», «SUPER_ADMIN» |
-| fetch_all_incidents fetch_all_active_incidents | display in the console a list of all incidents and corresponding users without dependencies | «ADMIN», «SUPER_ADMIN» |
-| fetch_user_by_{id}                             | display in the user console by id with all dependencies, {id} — "id" parameter              | «ADMIN», «SUPER_ADMIN» |
+| Request                                        | Description                                                                                                                                                                                                       | Access                         |
+|------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------|
+| fetch_all_users                                | display in the console a list of all users with all dependencies                                                                                                                                                  | «ADMIN», «SUPER_ADMIN»         |
+| fetch_all_incidents fetch_all_active_incidents | display in the console a list of all incidents and corresponding users without dependencies                                                                                                                       | «ADMIN», «SUPER_ADMIN»         |
+| fetch_user_by_{id}                             | display in the user console by id with all dependencies, {id} — "id" parameter                                                                                                                                    | «ADMIN», «SUPER_ADMIN»         |
+| add_user                                       | create a new user with a profile - give the status of the completed operation to the console, display auxiliary messages for entering all user and profile fields                                                 | «ADMIN», «SUPER_ADMIN»         |
+| update_user_{id}                               | update some data of the current user by id with a profile - give the status of the completed operation to the console, display auxiliary messages for entering all user and profile fields, {id} - "id" parameter | «ADMIN», «SUPER_ADMIN»         |
+| delete_user_{id}                               | delete user by id with all dependencies - give status to console                                                                                                                                                  | «ADMIN», «SUPER_ADMIN»         |
+| subscribe_service_{id}                         | subscribe to the service, {id} - "id" parameter                                                                                                                                                                   | «ADMIN», «SUPER_ADMIN», «USER» |
+| unsubscribe_service_{id}                       | unsubscribe to the service, {id} — "id" parameter                                                                                                                                                                 | «ADMIN», «SUPER_ADMIN», «USER» |
+| create_incident                                | create an incident (ticket)                                                                                                                                                                                       | «ADMIN», «SUPER_ADMIN», «USER» |
+| close_incident                                 | mark the status of the incident as completed                                                                                                                                                                      | «ADMIN», «SUPER_ADMIN»         |
 
 
 
