@@ -2,10 +2,10 @@
 
 > Console application
 
-![workflow](https://img.shields.io/badge/MySQL-8.0.26-brightgreen?logo=mysql)
-![workflow](https://img.shields.io/badge/Hibernate-5.6.2.Final-brightgreen?logo=hibernate)
-![workflow](https://img.shields.io/badge/Java-17-brightgreen?logo=java)
-![workflow](https://img.shields.io/badge/Log4J-1.2.17-brightgreen)
+![tools](https://img.shields.io/badge/MySQL-8.0.26-brightgreen?logo=mysql)
+![tools](https://img.shields.io/badge/Hibernate-5.6.2.Final-brightgreen?logo=hibernate)
+![tools](https://img.shields.io/badge/Java-17-brightgreen?logo=java)
+![tools](https://img.shields.io/badge/Log4J-1.2.17-brightgreen)
 
 #### Requirements
 
@@ -40,6 +40,7 @@
 | unsubscribe_service_{id}                       | unsubscribe to the service, {id} — "id" parameter                                                                                                                                                                 | «ADMIN», «SUPER_ADMIN», «USER» |
 | create_incident                                | create an incident (ticket)                                                                                                                                                                                       | «ADMIN», «SUPER_ADMIN», «USER» |
 | close_incident                                 | mark the status of the incident as completed                                                                                                                                                                      | «ADMIN», «SUPER_ADMIN»         |
+
 
 
 
